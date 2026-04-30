@@ -1,30 +1,59 @@
-print("=== Simple Calculator ===")
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Apr 28 05:24:03 2026
+@author: Admin
+"""
 
-num1 = float(input("Enter first number: "))
-num2 = float(input("Enter second number: "))
+class MarkSheet:
+    
+    def __init__(self, O, T):
+        self.O = float(O)
+        self.T = float(T)
+        
+    def Percentage(self):
+        P = (self.O / self.T) * 100
+        return P
+    
+    def Grade(self):
+        P = self.Percentage()
+        
+        if P >= 80:
+            return "A-1"
+        elif P >= 70:
+            return "A"
+        elif P >= 60:
+            return "B"
+        elif P >= 50:
+            return "C"
+        else:
+            return "Fail"
 
-print("\nSelect operation:")
-print("1. Addition (+)")
-print("2. Subtraction (-)")
-print("3. Multiplication (*)")
-print("4. Division (/)")
 
-choice = input("\nEnter choice (1/2/3/4): ")
+# --------- Child Class -----------
 
-if choice == '1':
-    print("Result:", num1 + num2)
+class MarkSheetSub(MarkSheet):
+    
+    def __init__(self, O, T, X):
+        super().__init__(O, T)
+        self.X = float(X)
+        
+    def Percentage(self):
+        p = super().Percentage()
+        R = p + self.X
+        return R
 
-elif choice == '2':
-    print("Result:", num1 - num2)
 
-elif choice == '3':
-    print("Result:", num1 * num2)
+# ------------ Main Program -------------
 
-elif choice == '4':
-    if num2 != 0:
-        print("Result:", num1 / num2)
-    else:
-        print("Error: Cannot divide by zero")
+OBT = input("Enter Obt Marks: ")
+TOTAL = input("Enter Total Marks: ")
+EXTRA = input("Enter Extra Marks: ")
 
-else:
-    print("Invalid choice")
+MarkObj = MarkSheetSub(OBT, TOTAL, EXTRA)
+
+PER = MarkObj.Percentage()
+GRADE = MarkObj.Grade()
+
+print("\nOriginal Percentage and Grade")
+print("Percentage:", PER)
+print("Grade:", GRADE)
